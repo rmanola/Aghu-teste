@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
-  "name": "AGHU - Extrator de Exames (offline)",
-  "version": "1.15.8.1",
-  "description": "Extrai exames, controles, prescri\u00e7\u00f5es, cirurgias e pass\u00f4metro do paciente no sistema AGHU",
+  "name": "AGHU - teste",
+  "version": "1.0.0.1",
+  "description": "Obtem dados do aghu",
   "browser_specific_settings": {
     "gecko": {
-      "id": "aghu-extrator-exames@addon.local",
+      "id": "aghu-dados-informa@addon.local",
       "strict_min_version": "140.0",
       "data_collection_permissions": {
         "required": [
@@ -39,7 +39,7 @@
   "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' blob: data:; img-src 'self' data: blob:; frame-src 'self'; form-action 'none'",
   "browser_action": {
     "default_icon": "icons/icon-48.png",
-    "default_title": "Extrair Exames AGHU"
+    "default_title": "Extrair Dados AGHU"
   },
   "background": {
     "scripts": [
