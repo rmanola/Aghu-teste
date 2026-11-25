@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>AGHU — Documento de alta</title>
+  <link rel="stylesheet" href="popup.css">
+  <style>
+    /* Full-window layout: overrides popup.css compact preview (max-height: 320px)
+       and body overflow:hidden so the document sheet fills the standalone window. */
+    html, body {
+      margin: 0;
+      height: 100%;
+      min-height: 100%;
+      overflow: auto;
+      background: var(--bg, #f4f6f8);
+    }
+    .alta-documento-page {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 100vh;
+      padding: 12px 16px 24px;
+      box-sizing: border-box;
+    }
+    .alta-documento-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-shrink: 0;
+    }
+    .alta-documento-header h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .alta-documento-status {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted, #667);
+    }
+    #alta-documento-mount {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    #alta-documento-mount .alta-preview-wrap {
+      max-height: none;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="alta-documento-page">
+    <header class="alta-documento-header">
+      <h1 id="alta-documento-title">Documento</h1>
+      <p class="alta-documento-status" id="alta-documento-status" role="status"></p>
+    </header>
+    <div id="alta-documento-mount" class="alta-preview-mount"></div>
+  </div>
+
+  <script src="../lib/dom-mount.js"></script>
+  <script src="../lib/extension-settings.js"></script>
+  <script src="../lib/date-br.js"></script>
+  <script src="../lib/receita-schema.js"></script>
+  <script src="../lib/receita-print-branding.js"></script>
+  <script src="../lib/receita-print-validation.js"></script>
+  <script src="../lib/receita-print.js"></script>
+  <script src="../lib/receita-patient-context.js"></script>
+  <script src="../lib/receita-preview-sync.js"></script>
+  <script src="../lib/cirurgias-equipe-parse.js"></script>
+  <script src="../lib/alta-defaults.js"></script>
+  <script src="../lib/alta-procedimentos.js"></script>
+  <script src="../lib/alta-encaminhamento.js"></script>
+  <script src="../lib/cid10-subcategorias.pack.js"></script>
+  <script src="../lib/cid10-catalog.js"></script>
+  <script src="../lib/alta-schema.js"></script>
+  <script src="../lib/alta-print.js"></script>
+  <script src="../lib/alta-preview-sanitize.js"></script>
+  <script src="../lib/alta-preview-editable.js"></script>
+  <script src="../lib/alta-preview-html.js"></script>
+  <script src="../lib/alta-preview-sync.js"></script>
+  <script src="../lib/alta-popup-host.js"></script>
+  <script src="alta-archive.js"></script>
+  <script src="alta-documento-boot.js"></script>
+</body>
+</html>

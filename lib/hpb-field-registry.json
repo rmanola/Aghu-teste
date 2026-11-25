@@ -1,0 +1,728 @@
+{
+  "version": 1,
+  "emptySentinels": {
+    "pending": [
+      "pendente"
+    ],
+    "unknown": [
+      "não informado",
+      "nao informado",
+      "ni",
+      "unknown"
+    ]
+  },
+  "modules": [
+    {
+      "id": "episode",
+      "label": "Episódio clínico",
+      "fieldConst": "EPISODE_FIELDS",
+      "route": "hpb-episodios",
+      "fields": [
+        {
+          "key": "startedAt",
+          "label": "Data início"
+        },
+        {
+          "key": "diagnosisGroup",
+          "label": "Grupo diagnóstico"
+        },
+        {
+          "key": "malignant",
+          "label": "Doença maligna?"
+        },
+        {
+          "key": "confirmation",
+          "label": "Confirmação diagnóstica"
+        },
+        {
+          "key": "topography",
+          "label": "Topografia principal"
+        },
+        {
+          "key": "status",
+          "label": "Status do episódio"
+        },
+        {
+          "key": "therapeuticIntent",
+          "label": "Intenção terapêutica"
+        },
+        {
+          "key": "mdtRequired",
+          "label": "MDT necessário?"
+        },
+        {
+          "key": "primaryDiagnosis",
+          "label": "Diagnóstico principal"
+        }
+      ]
+    },
+    {
+      "id": "mdt",
+      "label": "MDT",
+      "fieldConst": "MDT_FIELDS",
+      "route": "hpb-diagnostico",
+      "fields": [
+        {
+          "key": "date",
+          "label": "Data MDT"
+        },
+        {
+          "key": "decision",
+          "label": "Decisão principal"
+        },
+        {
+          "key": "intent",
+          "label": "Intenção"
+        },
+        {
+          "key": "surgeryRecommended",
+          "label": "Cirurgia recomendada?"
+        },
+        {
+          "key": "locoregional",
+          "label": "LRT recomendada?"
+        },
+        {
+          "key": "systemicTherapy",
+          "label": "Terapia sistêmica?"
+        }
+      ]
+    },
+    {
+      "id": "preop",
+      "label": "Pré-operatório",
+      "fieldConst": "PREOP_FIELDS",
+      "route": "hpb-cirurgia",
+      "fields": [
+        {
+          "key": "assessedAt",
+          "label": "Data avaliação"
+        },
+        {
+          "key": "asa",
+          "label": "ASA"
+        },
+        {
+          "key": "ecog",
+          "label": "ECOG"
+        },
+        {
+          "key": "cfs",
+          "label": "Clinical Frailty Scale"
+        },
+        {
+          "key": "childPugh",
+          "label": "Child-Pugh"
+        },
+        {
+          "key": "dialysis",
+          "label": "Diálise 2x/7d ou CRRT ≥24h?"
+        },
+        {
+          "key": "biliaryDrainage",
+          "label": "Drenagem biliar pré-op?"
+        },
+        {
+          "key": "charlson",
+          "label": "Charlson/CCI"
+        },
+        {
+          "key": "albumin",
+          "label": "Albumina g/dL"
+        },
+        {
+          "key": "bilirubin",
+          "label": "Bilirrubina mg/dL"
+        },
+        {
+          "key": "inr",
+          "label": "INR"
+        },
+        {
+          "key": "creatinine",
+          "label": "Creatinina mg/dL"
+        },
+        {
+          "key": "sodium",
+          "label": "Sódio mEq/L"
+        },
+        {
+          "key": "platelets",
+          "label": "Plaquetas"
+        },
+        {
+          "key": "elastographyKpa",
+          "label": "Elastografia kPa"
+        },
+        {
+          "key": "flrPct",
+          "label": "FLR %"
+        },
+        {
+          "key": "drainageType",
+          "label": "Tipo/lado drenagem"
+        }
+      ]
+    },
+    {
+      "id": "surgery_core",
+      "label": "Cirurgia",
+      "fieldConst": "SURGERY_CORE_FIELDS",
+      "route": "hpb-cirurgia",
+      "fields": [
+        {
+          "key": "date",
+          "label": "Data cirurgia"
+        },
+        {
+          "key": "hospital",
+          "label": "Hospital"
+        },
+        {
+          "key": "mainProcedure",
+          "label": "Procedimento principal"
+        },
+        {
+          "key": "accessRoute",
+          "label": "Via de acesso"
+        },
+        {
+          "key": "converted",
+          "label": "Conversão?"
+        },
+        {
+          "key": "vascularReconstruction",
+          "label": "Reconstrução vascular?"
+        },
+        {
+          "key": "surgeon",
+          "label": "Cirurgião principal"
+        },
+        {
+          "key": "durationMin",
+          "label": "Tempo cirúrgico min"
+        },
+        {
+          "key": "bloodLossMl",
+          "label": "Sangramento mL"
+        },
+        {
+          "key": "transfusionUnits",
+          "label": "Transfusão UI"
+        }
+      ]
+    },
+    {
+      "id": "hepatectomy",
+      "label": "Hepatectomia",
+      "fieldConst": "HEPATECTOMY_FIELDS",
+      "route": "hpb-cirurgia",
+      "fields": [
+        {
+          "key": "tipoHepatectomia",
+          "label": "Tipo de hepatectomia"
+        },
+        {
+          "key": "majorResection",
+          "label": "Hepatectomia maior?"
+        },
+        {
+          "key": "ressecaoAnatomica",
+          "label": "Ressecção anatômica?"
+        },
+        {
+          "key": "caudado",
+          "label": "Caudado?"
+        },
+        {
+          "key": "embolizacaoPortal",
+          "label": "Embolização portal?"
+        },
+        {
+          "key": "vp",
+          "label": "Invasão portal Vp"
+        },
+        {
+          "key": "hv",
+          "label": "Invasão veias hepáticas Vv"
+        },
+        {
+          "key": "b",
+          "label": "Invasão biliar B"
+        },
+        {
+          "key": "pringle",
+          "label": "Pringle?"
+        },
+        {
+          "key": "usIntraop",
+          "label": "US intraop?"
+        },
+        {
+          "key": "icg",
+          "label": "ICG?"
+        },
+        {
+          "key": "reconstrucaoBiliar",
+          "label": "Reconstrução biliar?"
+        },
+        {
+          "key": "reconstrucaoVascular",
+          "label": "Reconstrução vascular?"
+        },
+        {
+          "key": "segmentosRessecados",
+          "label": "Segmentos ressecados"
+        },
+        {
+          "key": "numeroLesoes",
+          "label": "Nº lesões"
+        },
+        {
+          "key": "tempoPringle",
+          "label": "Tempo Pringle min"
+        }
+      ]
+    },
+    {
+      "id": "pancreatectomy",
+      "label": "Pancreatectomia",
+      "fieldConst": "PANCREATECTOMY_FIELDS",
+      "route": "hpb-cirurgia",
+      "fields": [
+        {
+          "key": "procedimento",
+          "label": "Procedimento pancreático"
+        },
+        {
+          "key": "ressecabilidade",
+          "label": "Ressecabilidade"
+        },
+        {
+          "key": "neoadjuvancia",
+          "label": "Neoadjuvância?"
+        },
+        {
+          "key": "textura",
+          "label": "Textura do pâncreas"
+        },
+        {
+          "key": "anastomose",
+          "label": "Anastomose pancreática"
+        },
+        {
+          "key": "stent",
+          "label": "Stent ductal?"
+        },
+        {
+          "key": "drain",
+          "label": "Dreno?"
+        },
+        {
+          "key": "margemCongelada",
+          "label": "Margem congelada?"
+        },
+        {
+          "key": "reconstrucaoVascular",
+          "label": "Reconstrução vascular?"
+        },
+        {
+          "key": "ductoMm",
+          "label": "Ducto mm"
+        },
+        {
+          "key": "amylaseD1",
+          "label": "Amilase dreno D1"
+        },
+        {
+          "key": "amylaseD3",
+          "label": "Amilase dreno D3"
+        }
+      ]
+    },
+    {
+      "id": "biliary",
+      "label": "Via biliar",
+      "fieldConst": "BILIARY_FIELDS",
+      "route": "hpb-cirurgia",
+      "fields": [
+        {
+          "key": "grupoDoenca",
+          "label": "Grupo da doença biliar"
+        },
+        {
+          "key": "bismuthCorlette",
+          "label": "Bismuth-Corlette"
+        },
+        {
+          "key": "todani",
+          "label": "Todani"
+        },
+        {
+          "key": "strasberg",
+          "label": "Strasberg"
+        },
+        {
+          "key": "bismuthBenigno",
+          "label": "Bismuth benigno"
+        },
+        {
+          "key": "reconstrucaoBiliar",
+          "label": "Reconstrução biliar"
+        },
+        {
+          "key": "numeroDuctos",
+          "label": "Nº ductos"
+        }
+      ]
+    },
+    {
+      "id": "pathology",
+      "label": "Patologia",
+      "fieldConst": "PATHOLOGY_FIELDS",
+      "route": "hpb-cirurgia",
+      "fields": [
+        {
+          "key": "reportDate",
+          "label": "Data laudo"
+        },
+        {
+          "key": "tipoEspecime",
+          "label": "Tipo de espécime"
+        },
+        {
+          "key": "malignant",
+          "label": "Maligno?"
+        },
+        {
+          "key": "histologia",
+          "label": "Tipo histológico"
+        },
+        {
+          "key": "grau",
+          "label": "Grau"
+        },
+        {
+          "key": "marginR",
+          "label": "Margem R"
+        },
+        {
+          "key": "lvi",
+          "label": "LVI?"
+        },
+        {
+          "key": "pni",
+          "label": "PNI?"
+        },
+        {
+          "key": "vascularInvasion",
+          "label": "Invasão vascular?"
+        },
+        {
+          "key": "finalDiagnosis",
+          "label": "Diagnóstico final"
+        },
+        {
+          "key": "sizeCm",
+          "label": "Tamanho maior cm"
+        },
+        {
+          "key": "tumorCount",
+          "label": "Nº tumores"
+        },
+        {
+          "key": "marginMm",
+          "label": "Margem mais próxima mm"
+        },
+        {
+          "key": "lnExamined",
+          "label": "Linfonodos avaliados"
+        },
+        {
+          "key": "lnPositive",
+          "label": "Linfonodos positivos"
+        },
+        {
+          "key": "pT",
+          "label": "pT"
+        },
+        {
+          "key": "pN",
+          "label": "pN"
+        },
+        {
+          "key": "stage",
+          "label": "Estádio"
+        }
+      ]
+    },
+    {
+      "id": "vascular",
+      "label": "Vascular",
+      "fieldConst": "VASCULAR_FIELDS",
+      "route": "hpb-cirurgia",
+      "fields": [
+        {
+          "key": "reconstructionPerformed",
+          "label": "Reconstrução realizada?"
+        },
+        {
+          "key": "planejada",
+          "label": "Planejada?"
+        },
+        {
+          "key": "territorio",
+          "label": "Território"
+        },
+        {
+          "key": "vasoPrincipal",
+          "label": "Vaso principal"
+        },
+        {
+          "key": "intervencao",
+          "label": "Tipo de intervenção"
+        },
+        {
+          "key": "material",
+          "label": "Material"
+        },
+        {
+          "key": "fluxoRestabelecido",
+          "label": "Fluxo restabelecido?"
+        },
+        {
+          "key": "patencia1aImagem",
+          "label": "Patência 1ª imagem"
+        },
+        {
+          "key": "trombosePosOp",
+          "label": "Trombose pós-op?"
+        },
+        {
+          "key": "reintervencao",
+          "label": "Reintervenção?"
+        },
+        {
+          "key": "clampMin",
+          "label": "Clampeamento min"
+        }
+      ]
+    },
+    {
+      "id": "robotic",
+      "label": "Robótica",
+      "fieldConst": "ROBOTIC_FIELDS",
+      "route": "hpb-cirurgia",
+      "fields": [
+        {
+          "key": "sistema",
+          "label": "Sistema robótico"
+        },
+        {
+          "key": "icg",
+          "label": "ICG?"
+        },
+        {
+          "key": "usIntraop",
+          "label": "US intraop?"
+        },
+        {
+          "key": "grampeador",
+          "label": "Grampeador robótico?"
+        },
+        {
+          "key": "conversao",
+          "label": "Conversão?"
+        },
+        {
+          "key": "conversionReason",
+          "label": "Motivo da conversão"
+        },
+        {
+          "key": "falhaTecnica",
+          "label": "Falha técnica?"
+        },
+        {
+          "key": "cirurgiaoConsole",
+          "label": "Cirurgião console"
+        },
+        {
+          "key": "cirurgiaoMesa",
+          "label": "Cirurgião de mesa"
+        },
+        {
+          "key": "consoleStart",
+          "label": "Início console"
+        },
+        {
+          "key": "consoleEnd",
+          "label": "Fim console"
+        }
+      ]
+    },
+    {
+      "id": "postop",
+      "label": "Pós-operatório",
+      "fieldConst": "POSTOP_FIELDS",
+      "route": "hpb-cirurgia",
+      "fields": [
+        {
+          "key": "dischargeDate",
+          "label": "Data alta"
+        },
+        {
+          "key": "anyComplication",
+          "label": "Qualquer complicação?"
+        },
+        {
+          "key": "mainComplication",
+          "label": "Complicação principal"
+        },
+        {
+          "key": "clavienMax",
+          "label": "Clavien-Dindo máximo"
+        },
+        {
+          "key": "unplannedIcu",
+          "label": "UTI não planejada?"
+        },
+        {
+          "key": "reintervention",
+          "label": "Reintervenção?"
+        },
+        {
+          "key": "reoperation",
+          "label": "Reoperação?"
+        },
+        {
+          "key": "phlf",
+          "label": "PHLF"
+        },
+        {
+          "key": "popf",
+          "label": "POPF"
+        },
+        {
+          "key": "dge",
+          "label": "DGE"
+        },
+        {
+          "key": "pph",
+          "label": "PPH"
+        },
+        {
+          "key": "biliaryFistula",
+          "label": "Fístula biliar"
+        },
+        {
+          "key": "readmissionDate",
+          "label": "Data 1ª readmissão não programada"
+        },
+        {
+          "key": "deathDate",
+          "label": "Data do óbito"
+        }
+      ]
+    },
+    {
+      "id": "lrt",
+      "label": "Locorregional",
+      "fieldConst": "LRT_FIELDS",
+      "route": "hpb-terapias",
+      "fields": [
+        {
+          "key": "date",
+          "label": "Data procedimento"
+        },
+        {
+          "key": "modality",
+          "label": "Modalidade"
+        },
+        {
+          "key": "technique",
+          "label": "Técnica"
+        },
+        {
+          "key": "purpose",
+          "label": "Finalidade"
+        },
+        {
+          "key": "technicalSuccess",
+          "label": "Sucesso técnico"
+        },
+        {
+          "key": "criterion",
+          "label": "Critério de resposta"
+        },
+        {
+          "key": "response",
+          "label": "Resposta radiológica"
+        },
+        {
+          "key": "majorComplication",
+          "label": "Complicação maior?"
+        },
+        {
+          "key": "lesionCount",
+          "label": "Nº lesões total"
+        },
+        {
+          "key": "lesionsTreated",
+          "label": "Nº lesões tratadas"
+        },
+        {
+          "key": "largestCm",
+          "label": "Maior lesão cm"
+        },
+        {
+          "key": "segments",
+          "label": "Segmentos tratados"
+        }
+      ]
+    },
+    {
+      "id": "followup",
+      "label": "Seguimento",
+      "fieldConst": "FOLLOWUP_FIELDS",
+      "route": "hpb-episodios",
+      "fields": [
+        {
+          "key": "updatedAt",
+          "label": "Data avaliação"
+        },
+        {
+          "key": "vitalStatus",
+          "label": "Status vital"
+        },
+        {
+          "key": "diseaseStatus",
+          "label": "Status da doença"
+        },
+        {
+          "key": "recurrence",
+          "label": "Recorrência?"
+        },
+        {
+          "key": "recurrenceSite",
+          "label": "Local recorrência"
+        },
+        {
+          "key": "newTreatment",
+          "label": "Novo tratamento?"
+        },
+        {
+          "key": "treatmentType",
+          "label": "Tipo tratamento"
+        },
+        {
+          "key": "recurrenceDate",
+          "label": "Data recorrência"
+        },
+        {
+          "key": "lastContact",
+          "label": "Último contato"
+        }
+      ]
+    }
+  ]
+}

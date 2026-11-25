@@ -1,0 +1,1152 @@
+{
+  "version": 2,
+  "source": "HUCAM_HPB_Excel_MVP_v2.5 OFICIAL.xlsx",
+  "sheets": {
+    "02_EPISODIOS": {
+      "prefix": "episode",
+      "fieldConst": "EPISODE_FIELDS",
+      "fields": [
+        {
+          "label": "Data início",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "Grupo diagnóstico",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Diagnóstico principal",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Doença maligna?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Confirmação diagnóstica",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Topografia principal",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Status do episódio",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Intenção terapêutica",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "MDT necessário?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Observação curta",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "03_MDT": {
+      "prefix": "mdt",
+      "fieldConst": "MDT_FIELDS",
+      "fields": [
+        {
+          "label": "Data MDT",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "Decisão principal",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Intenção",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Cirurgia recomendada?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "LRT recomendada?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Terapia sistêmica?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "04_PREOP": {
+      "prefix": "preop",
+      "fieldConst": "PREOP_FIELDS",
+      "fields": [
+        {
+          "label": "Data avaliação",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "ASA",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "ECOG",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Charlson/CCI",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Clinical Frailty Scale",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Albumina g/dL",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Bilirrubina mg/dL",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "INR",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Creatinina mg/dL",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Sódio mEq/L",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Diálise 2x/7d ou CRRT ≥24h?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Plaquetas",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Child-Pugh",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "MELD clássico automático",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "MELD-Na automático",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "MELD 3.0 automático",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "Elastografia kPa",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "FLR %",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Drenagem biliar pré-op?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Tipo/lado drenagem",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "05_CIRURGIA_CORE": {
+      "prefix": "surgeryCore",
+      "fieldConst": "SURGERY_CORE_FIELDS",
+      "fields": [
+        {
+          "label": "Data cirurgia",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "Hospital",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Cirurgião principal",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Procedimento principal",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Via de acesso",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Conversão?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Tempo cirúrgico min",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Sangramento mL",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Transfusão UI",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Reconstrução vascular?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "05A_HEPATECTOMIA": {
+      "prefix": "hepatectomy",
+      "fieldConst": "HEPATECTOMY_FIELDS",
+      "fields": [
+        {
+          "label": "Tipo de hepatectomia",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Hepatectomia maior?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Ressecção anatômica?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Segmentos ressecados",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Caudado?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Nº lesões",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Embolização portal?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Invasão portal Vp",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Invasão veias hepáticas Vv",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Invasão biliar B",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Pringle?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Tempo Pringle min",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "US intraop?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "ICG?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Reconstrução biliar?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Reconstrução vascular?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "05B_PANCREATECTOMIA": {
+      "prefix": "pancreatectomy",
+      "fieldConst": "PANCREATECTOMY_FIELDS",
+      "fields": [
+        {
+          "label": "Procedimento pancreático",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Ressecabilidade",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Neoadjuvância?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Textura do pâncreas",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Ducto mm",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Anastomose pancreática",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Stent ductal?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Dreno?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Amilase dreno D1",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Amilase dreno D3",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Margem congelada?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Reconstrução vascular?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "05C_VIA_BILIAR": {
+      "prefix": "biliary",
+      "fieldConst": "BILIARY_FIELDS",
+      "fields": [
+        {
+          "label": "Grupo da doença biliar",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Bismuth-Corlette",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Todani",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Strasberg",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Bismuth benigno",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Reconstrução biliar",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Nº ductos",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "05D_LOCORREGIONAL": {
+      "prefix": "lrt",
+      "fieldConst": "LRT_FIELDS",
+      "fields": [
+        {
+          "label": "Data procedimento",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "Modalidade",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Técnica",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Nº lesões total",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Nº lesões tratadas",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Maior lesão cm",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Segmentos tratados",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Finalidade",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Sucesso técnico",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Critério de resposta",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Resposta radiológica",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Complicação maior?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "05E_VASCULAR": {
+      "prefix": "vascular",
+      "fieldConst": "VASCULAR_FIELDS",
+      "fields": [
+        {
+          "label": "Reconstrução realizada?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Planejada?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Território",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Vaso principal",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Tipo de intervenção",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Material",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Clampeamento min",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Fluxo restabelecido?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Patência 1ª imagem",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Trombose pós-op?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Reintervenção?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "05F_ROBOTICA": {
+      "prefix": "robotic",
+      "fieldConst": "ROBOTIC_FIELDS",
+      "fields": [
+        {
+          "label": "Sistema robótico",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Cirurgião console",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Cirurgião de mesa",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Início console",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Fim console",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Tempo console min automático",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "ICG?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "US intraop?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Grampeador robótico?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Conversão?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Motivo da conversão",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Falha técnica?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "06_PATOLOGIA": {
+      "prefix": "pathology",
+      "fieldConst": "PATHOLOGY_FIELDS",
+      "fields": [
+        {
+          "label": "Data laudo",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "Tipo de espécime",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Diagnóstico final",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Maligno?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Tipo histológico",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Grau",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Tamanho maior cm",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Nº tumores",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Margem R",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Margem mais próxima mm",
+          "listKey": null,
+          "suggestedType": "number",
+          "computed": false
+        },
+        {
+          "label": "Linfonodos avaliados",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Linfonodos positivos",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Razão linfonodal automática",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "LVI?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "PNI?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Invasão vascular?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "pT",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "pN",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Estádio",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "07_POSOPERATORIO": {
+      "prefix": "postop",
+      "fieldConst": "POSTOP_FIELDS",
+      "fields": [
+        {
+          "label": "Data alta",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "Internação pós-op dias automática",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "Qualquer complicação?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Complicação principal",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Clavien-Dindo máximo",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Clavien ≥ III automático",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "UTI não planejada?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Reintervenção?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Reoperação?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "PHLF",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "POPF",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "DGE",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "PPH",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Fístula biliar",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Data 1ª readmissão não programada",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "Readmissão 30d automática",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "Data do óbito",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "Óbito 30d automático",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "Óbito 60d automático",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "Óbito 90d automático",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "Textbook outcome automático",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    },
+    "08_SEGUIMENTO": {
+      "prefix": "followup",
+      "fieldConst": "FOLLOWUP_FIELDS",
+      "fields": [
+        {
+          "label": "Data avaliação",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "Status vital",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Status da doença",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Recorrência?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Data recorrência",
+          "listKey": null,
+          "suggestedType": "date",
+          "computed": false
+        },
+        {
+          "label": "Local recorrência",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Novo tratamento?",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Tipo tratamento",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Último contato",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        },
+        {
+          "label": "Dias seguimento automático",
+          "listKey": null,
+          "suggestedType": "computed",
+          "computed": true
+        },
+        {
+          "label": "Observações",
+          "listKey": null,
+          "suggestedType": "text",
+          "computed": false
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "xlsx": "HUCAM_HPB_Excel_MVP_v2.5 OFICIAL.xlsx",
+  "meta_sheets": [
+    "00_INSTRUCOES",
+    "00_LISTAS",
+    "09_DASHBOARD",
+    "10_LOG_TESTE",
+    "11_DICIONARIO_MVP",
+    "12_CLASSIFICACOES",
+    "13_VALIDACAO_DUPLA"
+  ],
+  "exclude_header_patterns": [
+    {
+      "pattern": "(?i)ID automático|_ID automático|^PAT_ID|^EPI_ID|^SUR_ID|^MDT_ID|^PREOP_ID|^HEP_ID|^PAN_ID|^BIL_ID|^LRT_ID|^VASC_ID|^ROB_ID|^PATH_ID|^POST_ID|^FU_ID",
+      "reason": "IDs automáticos Excel — identidade AGHU via patient-identity"
+    },
+    {
+      "pattern": "(?i)^Prontuário HUCAM",
+      "reason": "Chave operacional Excel; no AGHU a identidade é o prontuário normalizado"
+    },
+    {
+      "pattern": "(?i)^(Paciente|Diagnóstico|Procedimento|Sexo|Data cirurgia)( core)? (automático|automática)",
+      "reason": "Colunas derivadas Excel (paciente/diagnóstico/procedimento/sexo/data) — não são formulário"
+    },
+    {
+      "pattern": "(?i)^Validação|^Checagem|^Chave .* automática|^Status da geração|^Status do módulo$",
+      "reason": "Operacional Excel / validação de vínculo — fora do formulário AGHU"
+    }
+  ],
+  "exclude_labels": [
+    {
+      "label": "Chave de seleção automática",
+      "reason": "Operacional Excel"
+    },
+    {
+      "label": "Checagem de duplicidade",
+      "reason": "Operacional Excel"
+    }
+  ],
+  "ui_label_extras": [
+    {
+      "label": "TNM (legado)",
+      "reason": "Campo legado v1 mantido somente leitura no blob/UI secundária"
+    },
+    {
+      "label": "Causa óbito 90d",
+      "reason": "Legado v1 — fora da v2.5 principal"
+    },
+    {
+      "label": "Dias UTI",
+      "reason": "Legado v1 — fora da v2.5 principal"
+    },
+    {
+      "label": "Evento índice",
+      "reason": "Legado v1 (indexEvent) — removido da UI principal v2.5; permanece no blob"
+    },
+    {
+      "label": "Estadiamento resumido",
+      "reason": "Legado v1 MDT"
+    },
+    {
+      "label": "Transplante/Downstaging",
+      "reason": "Legado v1 MDT"
+    },
+    {
+      "label": "ALBI",
+      "reason": "Legado v1 preop"
+    },
+    {
+      "label": "Neoadjuvância",
+      "reason": "Legado v1 preop/pancreas — fora da aba preop v2.5"
+    },
+    {
+      "label": "Risco geral",
+      "reason": "Legado v1 preop"
+    },
+    {
+      "label": "Embolização portal",
+      "reason": "Legado v1 preop (permanece em hepatectomia)"
+    },
+    {
+      "label": "MELD",
+      "reason": "Legado v1 — substituído por MELD×3 automáticos"
+    },
+    {
+      "label": "Complexidade",
+      "reason": "Legado v1 surgery core"
+    },
+    {
+      "label": "Doença maligna",
+      "reason": "Legado v1 surgery core (permanece no episódio)"
+    },
+    {
+      "label": "Motivo conversão",
+      "reason": "Legado v1 surgery core (permanece em robótica)"
+    },
+    {
+      "label": "UTI planejada",
+      "reason": "Legado v1 surgery core"
+    },
+    {
+      "label": "FLR %",
+      "reason": "Legado em hepatectomia — na v2.5 só em preop"
+    },
+    {
+      "label": "Lado embolizado",
+      "reason": "Legado v1 hepatectomia"
+    },
+    {
+      "label": "POPF",
+      "reason": "Legado na aba pancreas — na v2.5 só em postop"
+    },
+    {
+      "label": "DGE",
+      "reason": "Legado na aba pancreas — na v2.5 só em postop"
+    },
+    {
+      "label": "PPH",
+      "reason": "Legado na aba pancreas — na v2.5 só em postop"
+    },
+    {
+      "label": "CCI",
+      "reason": "Legado v1 postop"
+    },
+    {
+      "label": "Tipo reintervenção",
+      "reason": "Legado v1 postop"
+    },
+    {
+      "label": "Fonte",
+      "reason": "Legado v1 followup"
+    },
+    {
+      "label": "Status oncológico",
+      "reason": "Legado v1 — substituído por Status da doença"
+    },
+    {
+      "label": "Readmissão 90d",
+      "reason": "Legado v1 followup"
+    },
+    {
+      "label": "Data óbito",
+      "reason": "Legado followup — óbito na v2.5 em postop"
+    },
+    {
+      "label": "Causa óbito",
+      "reason": "Legado v1 followup"
+    }
+  ],
+  "indicator_deferred": [
+    {
+      "id": "dashboard_kpi_extra",
+      "reason": "KPIs 09_DASHBOARD além dos já em hpb-indicators — diferidos; ver docs"
+    }
+  ],
+  "computed_labels": [
+    "MELD clássico automático",
+    "MELD-Na automático",
+    "MELD 3.0 automático",
+    "Internação pós-op dias automática",
+    "Clavien ≥ III automático",
+    "Readmissão 30d automática",
+    "Óbito 30d automático",
+    "Óbito 60d automático",
+    "Óbito 90d automático",
+    "Textbook outcome automático",
+    "Razão linfonodal automática",
+    "Tempo console min automático",
+    "Dias seguimento automático"
+  ]
+}

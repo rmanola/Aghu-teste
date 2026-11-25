@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body data-auth="pending">
+
+  <!-- ── Header ── -->
+  <div class="header">
+    <div class="header-brand">
+      <svg width="24" height="24" viewBox="0 0 128 128" fill="none" aria-hidden="true">
+        <rect x="42" y="28" width="18" height="10" rx="3" fill="#3a6bb5"/>
+        <rect x="26" y="34" width="50" height="60" rx="6" fill="#5b9cf6"/>
+        <rect x="34" y="50" width="34" height="5" rx="2.5" fill="#e4e6f0" opacity="0.9"/>
+        <rect x="34" y="62" width="34" height="5" rx="2.5" fill="#e4e6f0" opacity="0.9"/>
+        <rect x="34" y="74" width="24" height="5" rx="2.5" fill="#e4e6f0" opacity="0.75"/>
+        <path d="M82 64h26" stroke="#2dd4bf" stroke-width="8" stroke-linecap="round"/>
+        <path d="M96 50l18 14-18 14" stroke="#2dd4bf" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h1>AGHU Assist</h1>
+        <div class="subtitle">Extração e painel clínico</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="workspace-select-wrap hidden" id="workspace-select-wrap" hidden>
+        <label class="visually-hidden" for="aghu-workspace-select">Área de trabalho</label>
+        <select
+          id="aghu-workspace-select"
+          class="workspace-select"
+          title="Área de trabalho activa"
+          aria-label="Área de trabalho"
+        >
+          <option value="">Área…</option>
+        </select>
+      </div>
+      <div class="billing-banner hidden" id="billing-banner">
+        <span class="billing-banner-text">A carregar plano…</span>
+        <button type="button" class="billing-banner-link" id="billing-banner-action" aria-expanded="false" aria-controls="billing-plans-panel">Ver planos</button>
+      </div>
+      <div class="auth-bar" id="auth-bar">
+        <span class="auth-dot" aria-hidden="true"></span>
+        <span class="auth-email" id="auth-user-email">—</span>
+        <button class="btn-link" id="btn-auth-signout" title="Encerrar sessão">Sair</button>
+      </div>
+      <button
+        type="button"
+        class="btn-header btn-upgrade-cta hidden"
+        id="btn-upgrade-cta"
+        title="Assinar — mais extrações e alta"
+        aria-label="Assinar — mais extrações e alta"
+        aria-controls="billing-plans-panel"
+        aria-expanded="false"
+        hidden
+      >
+        Mais extrações e alta
+      </button>
+      <button type="button" class="btn-header btn-header-icon" id="btn-theme-toggle" title="Tema do sistema" aria-label="Tema do sistema">
+        <svg id="theme-icon-system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <path d="M8 21h8M12 17v4"/>
+        </svg>
+        <svg id="theme-icon-light" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+        <svg id="theme-icon-dark" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button type="button" class="btn-header btn-header-icon" id="btn-open-settings" title="Configurações" aria-label="Configurações" aria-haspopup="dialog" aria-controls="panel-settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- FEAT-306: overlay Configurações (não é tab) -->
+  <div id="panel-settings" class="settings-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+    <div class="settings-overlay-inner">
+      <div class="settings-overlay-header">
+        <h2 id="settings-title">Configurações</h2>
+        <button type="button" class="btn-header btn-header-icon" id="btn-close-settings" title="Fechar" aria-label="Fechar configurações">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <p class="settings-hint" id="settings-status" aria-live="polite"></p>
+      <div class="settings-body">
+        <label class="settings-field" for="settings-service-select">
+          <span>Serviço (rodapé da alta)</span>
+          <select id="settings-service-select"></select>
+        </label>
+        <label class="settings-field hidden" id="settings-service-other-wrap" for="settings-service-other" hidden>
+          <span>Outro serviço</span>
+          <input type="text" id="settings-service-other" maxlength="120" autocomplete="off" placeholder="Nome do serviço">
+        </label>
+        <label class="settings-field" for="settings-location">
+          <span>Hospital / local</span>
+          <input type="text" id="settings-location" maxlength="120" autocomplete="off" placeholder="HUCAM - Vitória, Espírito Santo">
+        </label>
+        <fieldset class="settings-field ctrl-pa-format" id="settingsPaFormatFieldset">
+          <legend>Formato da PA (vista do resumo)</legend>
+          <label class="ctrl-pa-format-option">
+            <input type="radio" name="settingsPaFormat" value="minmax" id="settingsPaFormatMinmax" checked>
+            Intervalo (min–máx)
+          </label>
+          <label class="ctrl-pa-format-option">
+            <input type="radio" name="settingsPaFormat" value="sequence" id="settingsPaFormatSequence">
+            Sequência (com horário)
+          </label>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Plano: painel expandido + erros (banner vive no header) ── -->
+  <p class="billing-banner-error hidden" id="billing-banner-error" role="alert"></p>
+
+  <div class="billing-plans-panel hidden" id="billing-plans-panel" role="region" aria-labelledby="billing-plans-title">
+    <div class="billing-plans-panel-inner">
+      <div class="billing-plans-header">
+        <h3 id="billing-plans-title">Escolher plano</h3>
+        <button type="button" class="btn-link" id="billing-plans-close" aria-label="Fechar planos">Fechar</button>
+      </div>
+      <p class="billing-plans-hint" id="billing-plans-hint">Conclua o pagamento na aba Stripe; o plano actualiza ao reabrir o popup.</p>
+      <fieldset class="billing-interval-toggle">
+        <legend class="sr-only">Intervalo de cobrança</legend>
+        <label><input type="radio" name="billing-interval" value="month" checked> Mensal</label>
+        <label><input type="radio" name="billing-interval" value="annual"> Anual (−10%)</label>
+      </fieldset>
+      <div class="billing-plans-cards">
+        <button type="button" class="billing-plan-cta" data-billing-plan="interno">
+          <span class="billing-plan-name">Interno</span>
+          <span class="billing-plan-price" id="billing-plan-price-interno">—</span>
+        </button>
+        <button type="button" class="billing-plan-cta" data-billing-plan="residente">
+          <span class="billing-plan-name">Residente</span>
+          <span class="billing-plan-price" id="billing-plan-price-residente">—</span>
+        </button>
+      </div>
+      <p class="billing-plans-error hidden" id="billing-plans-error" role="alert"></p>
+    </div>
+  </div>
+
+  <div class="staff-overage-dialog hidden" id="staff-overage-dialog" role="dialog" aria-labelledby="staff-overage-dialog-title">
+    <div class="staff-overage-dialog-inner">
+      <h3 id="staff-overage-dialog-title">Limite de 20 pacientes incluídos</h3>
+      <p class="staff-overage-dialog-text">
+        Este paciente excede o limite incluído do plano Staff. Cobrança adicional de
+        <strong>R$ 5/mês</strong> por paciente extra na assinatura existente.
+      </p>
+      <div class="staff-overage-dialog-actions">
+        <button type="button" class="btn primary" id="staff-overage-accept">Aceitar e continuar</button>
+        <button type="button" class="btn secondary" id="staff-overage-decline">Recusar</button>
+        <button type="button" class="btn-link" id="staff-overage-billing">Gerir assinatura</button>
+        <button type="button" class="btn-link" id="staff-overage-close">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Estado boot (verificando sessão) ── -->
+  <div id="auth-boot">A verificar sessão…</div>
+
+  <!-- ── Tela de Login (visível só sem sessão) ── -->
+  <div class="login-panel" id="panel-login">
+    <div class="login-card" data-mode="signin">
+      <div class="login-tabs" role="tablist" aria-label="Modo de autenticação">
+        <button type="button" class="login-tab active" id="tab-signin" data-mode="signin" role="tab" aria-selected="true">
+          Entrar
+        </button>
+        <button type="button" class="login-tab" id="tab-signup" data-mode="signup" role="tab" aria-selected="false">
+          Criar conta
+        </button>
+      </div>
+      <h2 class="login-title">
+        <span data-show-mode="signin">Entrar no AGHU</span>
+        <span data-show-mode="signup">Criar conta no AGHU</span>
+      </h2>
+      <p class="login-sub">
+        <span data-show-mode="signin">Use a mesma conta do painel web. O login é obrigatório para usar a extensão.</span>
+        <span data-show-mode="signup">Escolha o plano e cadastre-se com um e-mail válido. Pode ser necessário confirmar o e-mail antes de entrar.</span>
+      </p>
+      <form id="auth-form" autocomplete="on">
+        <div class="field">
+          <label for="auth-email">E-mail</label>
+          <input
+            type="email"
+            id="auth-email"
+            name="email"
+            autocomplete="username"
+            required
+            placeholder="utilizador@instituicao.br"
+          >
+        </div>
+        <div class="field" style="margin-top:10px">
+          <label for="auth-password">Palavra-passe</label>
+          <input
+            type="password"
+            id="auth-password"
+            name="password"
+            autocomplete="current-password"
+            required
+            minlength="6"
+          >
+        </div>
+        <p class="forgot-password-link" data-show-mode="signin">
+          <button type="button" id="btn-forgot-password">Esqueci a palavra-passe</button>
+        </p>
+        <div class="field" data-show-mode="signup" style="margin-top:10px">
+          <label for="auth-password-confirm">Confirmar palavra-passe</label>
+          <input
+            type="password"
+            id="auth-password-confirm"
+            name="password-confirm"
+            autocomplete="new-password"
+            minlength="6"
+          >
+        </div>
+        <div class="field signup-plan-field" data-show-mode="signup" style="margin-top:10px">
+          <fieldset id="auth-plan-fieldset" class="auth-plan-fieldset">
+            <legend>Plano</legend>
+            <label class="auth-plan-option">
+              <input type="radio" name="auth-plan" value="free" checked>
+              <span>Grátis</span>
+            </label>
+            <label class="auth-plan-option">
+              <input type="radio" name="auth-plan" value="interno">
+              <span>Interno</span>
+            </label>
+            <label class="auth-plan-option">
+              <input type="radio" name="auth-plan" value="residente">
+              <span>Residente</span>
+            </label>
+            <label class="auth-plan-option">
+              <input type="radio" name="auth-plan" value="staff">
+              <span>Staff</span>
+            </label>
+            <fieldset id="auth-plan-interval" class="auth-plan-fieldset auth-plan-interval hidden" hidden>
+              <legend class="sr-only">Intervalo de cobrança</legend>
+              <label class="auth-plan-option">
+                <input type="radio" name="auth-plan-interval" value="month" checked>
+                <span>Mensal</span>
+              </label>
+              <label class="auth-plan-option">
+                <input type="radio" name="auth-plan-interval" value="annual">
+                <span>Anual</span>
+              </label>
+            </fieldset>
+          </fieldset>
+        </div>
+
+        <div class="auth-message" id="auth-message" role="status" aria-live="polite"></div>
+        <div class="login-actions">
+          <button type="submit" class="btn primary" id="btn-auth-submit">
+            <svg data-show-mode="signin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10 17 15 12 10 7"/>
+              <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            <svg data-show-mode="signup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="8.5" cy="7" r="4"/>
+              <line x1="20" y1="8" x2="20" y2="14"/>
+              <line x1="23" y1="11" x2="17" y2="11"/>
+            </svg>
+            <span data-show-mode="signin">Entrar</span>
+            <span data-show-mode="signup">Criar conta</span>
+          </button>
+        </div>
+      </form>
+      <p class="login-foot">
+        Os dados de paciente nunca saem cifrados sem autenticação.
+        <br>Sessão guardada localmente neste perfil do Firefox.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Tab nav ── -->
+  <div class="tab-nav">
+    <button class="tab-btn tab-passometro active" data-tab="passometro">Passômetro</button>
+    <button class="tab-btn tab-receitas" data-tab="receitas">Alta</button>
+    <button class="tab-btn tab-calculadoras" data-tab="calculadoras">Calculadoras</button>
+    <button class="tab-btn" data-tab="exames">Exames</button>
+    <button class="tab-btn tab-controles" data-tab="controles">Controles</button>
+    <button class="tab-btn tab-prescricoes" data-tab="prescricoes">Prescrições</button>
+    <button class="tab-btn tab-cadastro" data-tab="cadastro">Cadastro</button>
+    <button class="tab-btn tab-cirurgias" data-tab="cirurgias">Cirurgias</button>
+  </div>
+
+  <!-- ════════════════════════════════════
+       PAINEL: EXAMES (original intacto)
+  ════════════════════════════════════ -->
+  <div class="tab-panel" id="panel-exames">
+
+    <div class="date-bar">
+      <label>📅 Data:</label>
+      <input type="text" id="dateFrom" placeholder="dd/mm/aaaa" inputmode="numeric" maxlength="10" title="dd/mm/aaaa" autocomplete="off">
+      <span class="sep">até</span>
+      <input type="text" id="dateTo" placeholder="dd/mm/aaaa" inputmode="numeric" maxlength="10" title="dd/mm/aaaa" autocomplete="off">
+      <button class="btn-sm" id="btnToday">Hoje</button>
+      <button class="btn-sm" id="btnYesterday">Ontem</button>
+      <button class="btn-sm" id="btnClearDate">Limpar</button>
+      <span id="dateBadge" class="date-active-badge hidden"></span>
+    </div>
+
+    <div class="patient-bar" id="patientBar">
+      <label for="patientSelect">Paciente (local):</label>
+      <select id="patientSelect" title="Histórico por prontuário e primeiro nome"></select>
+      <span id="patientBarHint" class="patient-hint" aria-live="polite"></span>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn primary" id="btnExtract">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="21 8 21 21 3 21 3 8"/>
+          <rect x="1" y="3" width="22" height="5"/>
+          <line x1="10" y1="12" x2="14" y2="12"/>
+        </svg>
+        <span class="btn-extract-label">Extrair</span>
+      </button>
+      <input type="text" id="searchInput" placeholder="Filtrar exames..." class="hidden">
+      <button class="btn warning hidden" id="btnFetchDetails" title="Buscar resultados automaticamente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+          <polyline points="21 3 21 9 15 9"/>
+        </svg>
+        Buscar Detalhes
+      </button>
+    </div>
+
+    <div class="progress-bar" id="progressBar">
+      <div class="bar-bg"><div class="bar-fill" id="progressFill"></div></div>
+      <div class="progress-text" id="progressText">Aguardando...</div>
+    </div>
+
+    <div class="stats hidden" id="statsBar">
+      <span>Total: <span class="count" id="statTotal">0</span></span>
+      <span>Com resultado: <span class="with-result" id="statWithResult">0</span></span>
+      <span>Sem resultado: <span class="no-result" id="statNoResult">0</span></span>
+      <span>Com anexo: <span class="has-attach" id="statAttach">0</span></span>
+    </div>
+
+    <div id="initialState" class="state">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#5b9cf6" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <p>Selecione a data e clique em <strong>Extrair</strong> para buscar os exames daquele dia.</p>
+    </div>
+
+    <div id="errorState" class="state hidden">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="15" y1="9" x2="9" y2="15"/>
+        <line x1="9" y1="9" x2="15" y2="15"/>
+      </svg>
+      <p class="error" id="errorMessage"></p>
+    </div>
+
+    <div id="tableContainer" class="hidden">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-icon"></th>
+              <th class="col-date">Data</th>
+              <th class="col-exam">Exame</th>
+              <th class="col-sample">Amostra</th>
+              <th class="col-result">Resultado</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="export-bar hidden" id="exportBar">
+      <div class="export-bar-filters" role="group" aria-label="Filtros de exames">
+        <button class="btn" id="btnOnlyResults" title="Mostrar apenas exames com resultado">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Com resultado
+        </button>
+        <button class="btn" id="btnOnlyNoResults" title="Mostrar apenas exames sem resultado">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Sem resultado
+        </button>
+        <button class="btn" id="btnOnlyAttach" title="Mostrar apenas exames com anexo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          Com anexo
+        </button>
+      </div>
+      <div class="export-bar-actions">
+        <button class="btn" id="btnCopy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar
+        </button>
+        <button class="btn" id="btnCSV">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          CSV
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /panel-exames -->
+
+  <!-- ════════════════════════════════════
+       PAINEL: CONTROLES
+  ════════════════════════════════════ -->
+  <div class="tab-panel" id="panel-controles">
+    <div class="ctrl-body">
+
+      <p class="ctrl-desc">
+        Gera o resumo clínico compacto dos controles do paciente (monitorização + balanço hídrico) para passagem de plantão.<br>
+        <strong style="color:var(--teal)">Atenção:</strong> abra a página de <em>Controles do Paciente</em> no AGHU antes de extrair.
+      </p>
+
+      <div class="patient-bar" id="ctrlPatientBar">
+        <label for="ctrlPatientSelect">Paciente (local):</label>
+        <select id="ctrlPatientSelect" title="Histórico de controles por prontuário"></select>
+        <span id="ctrlPatientHint" class="patient-hint" aria-live="polite"></span>
+      </div>
+
+      <fieldset class="settings-field ctrl-pa-format" id="controlesPaFormatFieldset">
+        <legend>Formato da PA</legend>
+        <label class="ctrl-pa-format-option">
+          <input type="radio" name="controlesPaFormat" value="minmax" id="controlesPaFormatMinmax" checked>
+          Intervalo (min–máx)
+        </label>
+        <label class="ctrl-pa-format-option">
+          <input type="radio" name="controlesPaFormat" value="sequence" id="controlesPaFormatSequence">
+          Sequência (com horário)
+        </label>
+      </fieldset>
+
+      <div class="ctrl-actions">
+        <button class="btn teal-btn" id="btnExtractControles">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+          Extrair Controles
+        </button>
+        <button class="btn hidden" id="btnCopyControles">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          Copiar
+        </button>
+      </div>
+
+      <div id="ctrl-status"></div>
+
+      <div id="ctrl-meta"></div>
+
+      <div id="ctrl-output"></div>
+
+    </div>
+  </div><!-- /panel-controles -->
+
+  <!-- ════════════════════════════════════
+       PAINEL: PRESCRIÇÕES
+  ════════════════════════════════════ -->
+  <div class="tab-panel" id="panel-prescricoes">
+    <div class="rx-body">
+
+      <div class="date-bar" id="rxDateBar">
+        <label>📅 De:</label>
+        <input type="text" id="rxDateFrom" placeholder="dd/mm/aaaa" inputmode="numeric" maxlength="10" title="dd/mm/aaaa ou dd/mm/aa" autocomplete="off">
+        <span class="sep">Até</span>
+        <input type="text" id="rxDateTo" placeholder="dd/mm/aaaa" inputmode="numeric" maxlength="10" title="dd/mm/aaaa ou dd/mm/aa" autocomplete="off">
+        <button class="btn-sm" id="btnRxToday" type="button">Hoje</button>
+        <button class="btn-sm" id="btnRxYesterday" type="button">Ontem</button>
+        <button class="btn-sm" id="btnRxClearDate" type="button">Limpar</button>
+        <button type="button" class="rx-help-btn" id="btnRxHelp"
+          title="Extrai dieta, hidratação venosa, antibióticos e analgesia. Consultar: De/Até filtram por dia clínico 16:00→15:59 (prescrição do dia D = D−1 16:00 → D 15:59; 1 validade por dia). Limpar datas = todas as linhas na página. Manter: se a página Manter estiver aberta, extrai a prescrição ativa (coluna SITUAÇÃO ECF = Prescrito quando existir). Datas do intervalo são ignoradas nesse modo."
+          aria-label="Ajuda sobre extração de prescrições"
+          aria-describedby="rx-help-desc">?</button>
+        <span id="rx-help-desc" class="visually-hidden">
+          Extrai dieta, hidratação venosa, antibióticos e analgesia.
+          Consultar Prescrição Médica: De/Até filtram por dia clínico 16:00→15:59 (prescrição do dia D = D−1 16:00 → D 15:59; 1 validade por dia selecionado).
+          Manter: se a página Manter estiver aberta, extrai a prescrição ativa (coluna SITUAÇÃO ECF = Prescrito quando existir). Datas do intervalo são ignoradas nesse modo.
+        </span>
+        <span id="rxDateBadge" class="date-active-badge hidden"></span>
+      </div>
+
+      <div class="patient-bar" id="rxPatientBar">
+        <label for="rxPatientSelect">Paciente (local):</label>
+        <select id="rxPatientSelect" title="Histórico de prescrições por prontuário"></select>
+        <span id="rxPatientHint" class="patient-hint" aria-live="polite"></span>
+      </div>
+
+      <div class="rx-actions">
+        <button class="btn purple-btn" id="btnExtractPrescricao">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+            <path d="M10.5 20.5L3.5 13.5 10.5 6.5"/>
+            <path d="M13.5 3.5L20.5 10.5 13.5 17.5"/>
+          </svg>
+          Extrair Prescrição
+        </button>
+        <button class="btn hidden" id="btnCopyPrescricao">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          Copiar
+        </button>
+      </div>
+
+      <div id="rx-status"></div>
+      <div id="rx-meta"></div>
+
+      <div id="rx-entries" class="rx-entries" aria-live="polite"></div>
+
+    </div>
+  </div><!-- /panel-prescricoes -->
+
+  <!-- ════════════════════════════════════
+       PAINEL: CADASTRO (POL — FEAT-109)
+  ════════════════════════════════════ -->
+  <div class="tab-panel" id="panel-cadastro">
+    <div class="cx-body">
+      <p class="cx-desc">
+        Extrai demografia ampliada (Dados do Paciente) e internações do Histórico
+        (`#field_internacoes`) → arquivo local + episódios / DIH·staff se vazios.<br>
+        <strong style="color:var(--orange)">Atenção:</strong> abra o <em>Prontuário Online</em> do paciente no AGHU antes de extrair.
+      </p>
+
+      <div class="patient-bar" id="cdPatientBar">
+        <label for="cdPatientSelect">Paciente (local):</label>
+        <select id="cdPatientSelect" title="Histórico por prontuário"></select>
+        <span id="cdPatientHint" class="patient-hint" aria-live="polite"></span>
+      </div>
+
+      <div class="cx-actions">
+        <button class="btn orange-btn" id="btnExtractCadastro">
+          Extrair cadastro
+        </button>
+      </div>
+
+      <div id="cd-status"></div>
+      <div id="cd-meta"></div>
+      <pre id="cd-demo" class="cd-demo" style="display:none" aria-live="polite"></pre>
+
+      <div class="cd-table-wrap">
+        <table class="cd-internacoes" aria-label="Internações extraídas">
+          <thead>
+            <tr>
+              <th>Início</th>
+              <th>Fim</th>
+              <th>Especialidade</th>
+              <th>Staff</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="cd-internacoes-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div><!-- /panel-cadastro -->
+
+  <!-- ════════════════════════════════════
+       PAINEL: CIRURGIAS (POL)
+  ════════════════════════════════════ -->
+  <div class="tab-panel" id="panel-cirurgias">
+    <div class="cx-body">
+      <p class="cx-desc">
+        Extrai a lista de cirurgias do POL (Descrição PDF): equipe, achados operatórios e descrição técnica → passômetro local.<br>
+        <strong style="color:var(--orange)">Atenção:</strong> abra o <em>Prontuário Online</em> do paciente no AGHU antes de extrair.
+      </p>
+
+      <div class="patient-bar" id="cxPatientBar">
+        <label for="cxPatientSelect">Paciente (local):</label>
+        <select id="cxPatientSelect" title="Histórico de passômetro / cirurgias por prontuário"></select>
+        <span id="cxPatientHint" class="patient-hint" aria-live="polite"></span>
+      </div>
+
+      <div class="cx-actions">
+        <button class="btn orange-btn" id="btnExtractCirurgias">
+          Extrair Cirurgias
+        </button>
+      </div>
+
+      <div id="cx-status"></div>
+      <div id="cx-meta"></div>
+      <div id="cx-output"></div>
+    </div>
+  </div><!-- /panel-cirurgias -->
+
+  <!-- ════════════════════════════════════
+       PAINEL: PASSÔMETRO (one-click FEAT-070)
+  ════════════════════════════════════ -->
+  <div class="tab-panel active" id="panel-passometro">
+    <div class="pm-body pm-oneclick-body">
+
+      <div id="pm-view-formulario" class="pm-view">
+        <p class="pm-desc">
+          Informe um ou mais prontuários e o período. A extensão abre POL, Controles e Prescrições no AGHU
+          (já autenticado), extrai os dados em série e gera o passômetro local com autofill.
+          Login no AGHU continua manual.
+        </p>
+
+        <label class="pm-oc-label" for="pmProntuarios">Prontuários</label>
+        <textarea
+          id="pmProntuarios"
+          class="pm-oc-prontuarios"
+          rows="3"
+          placeholder="Um por linha, ou separados por vírgula (só dígitos)"
+          autocomplete="off"
+          spellcheck="false"
+        ></textarea>
+
+        <div class="pm-oc-period date-bar">
+          <span class="pm-oc-period-label">Período:</span>
+          <input type="text" id="pmDateFrom" placeholder="dd/mm/aaaa" inputmode="numeric" maxlength="10" title="dd/mm/aaaa — Rx: 16:00→15:59; Controles: 07:00→06:59" autocomplete="off" aria-label="Data inicial">
+          <span class="sep">até</span>
+          <input type="text" id="pmDateTo" placeholder="dd/mm/aaaa" inputmode="numeric" maxlength="10" title="dd/mm/aaaa — Rx: 16:00→15:59; Controles: 07:00→06:59" autocomplete="off" aria-label="Data final">
+          <button type="button" class="btn-sm active" id="pmBtnHoje" data-period="hoje" title="Hoje: Rx = ontem 16:00→hoje 15:59; Controles = hoje 07:00→amanhã 06:59">Hoje</button>
+          <button type="button" class="btn-sm" id="pmBtnOntem" data-period="ontem">Ontem</button>
+          <button type="button" class="btn-sm" id="pmBtnSemanal" data-period="semanal">Semanal</button>
+        </div>
+
+        <fieldset class="pm-oc-domains-select" id="pmDomainsSelect">
+          <legend class="pm-oc-domains-legend">Extrair:</legend>
+          <label class="pm-oc-domain-check"><input type="checkbox" id="pmDomainCadastro" checked> Cadastro</label>
+          <label class="pm-oc-domain-check"><input type="checkbox" id="pmDomainControles" checked> Controles</label>
+          <label class="pm-oc-domain-check"><input type="checkbox" id="pmDomainExames" checked> Exames</label>
+          <label class="pm-oc-domain-check"><input type="checkbox" id="pmDomainCirurgias" checked> Cirurgias</label>
+          <label class="pm-oc-domain-check"><input type="checkbox" id="pmDomainPrescricao" checked> Prescrições</label>
+        </fieldset>
+
+        <fieldset class="settings-field ctrl-pa-format" id="passometroPaFormatFieldset">
+          <legend>Formato da PA no resumo de Controles</legend>
+          <label class="ctrl-pa-format-option">
+            <input type="radio" name="passometroPaFormat" value="minmax" id="passometroPaFormatMinmax" checked>
+            Intervalo (min–máx)
+          </label>
+          <label class="ctrl-pa-format-option">
+            <input type="radio" name="passometroPaFormat" value="sequence" id="passometroPaFormatSequence">
+            Sequência (com horário)
+          </label>
+        </fieldset>
+
+        <div class="pm-actions">
+          <button class="btn primary" id="btnPassometroOneClick" title="Extrair domínios e gerar passômetro">
+            Extrair para Passômetro
+          </button>
+          <button type="button" class="btn pm-walkthrough-replay" id="btnPmWalkthroughReplay" title="Rever o tour do Passômetro one-click" aria-label="Ver tour do Passômetro one-click">
+            Ver tour
+          </button>
+          <button class="btn" id="btnPrintPassometro" title="Imprimir passômetro do paciente selecionado">
+            Imprimir
+          </button>
+        </div>
+
+        <div class="patient-bar" id="pmPatientBar">
+          <label for="pmPatientSelect">Paciente (local):</label>
+          <select id="pmPatientSelect" title="Passômetros guardados localmente"></select>
+        </div>
+      </div>
+
+      <div id="pm-view-chat" class="pm-view" hidden>
+        <p class="pm-desc">
+          Descreva o lote e o período em linguagem natural. O agente escolhe skills tipadas;
+          a extração roda no AGHU já autenticado (login manual). Sem dados clínicos no chat.
+        </p>
+        <div id="pm-agent-chat-thread" class="pm-agent-chat-thread" aria-live="polite">
+          <p class="pm-agent-chat-empty">Ex.: «Passômetro semanal dos prontuários 11111111 e 22222222»</p>
+        </div>
+        <div class="pm-agent-chat-compose">
+          <textarea
+            id="pmAgentChatInput"
+            class="pm-agent-chat-input"
+            rows="2"
+            placeholder="Pedido em português…"
+            autocomplete="off"
+          ></textarea>
+          <button type="button" class="btn primary" id="btnPmAgentSend">Enviar</button>
+        </div>
+        <p id="pm-agent-chat-hint" class="patient-hint" aria-live="polite"></p>
+        <div id="pm-agent-confirm" class="pm-agent-confirm" hidden>
+          <p id="pm-agent-confirm-summary" class="pm-agent-confirm-summary"></p>
+          <div class="pm-agent-confirm-actions">
+            <button type="button" class="btn primary" id="btnPmAgentConfirm">Confirmar</button>
+            <button type="button" class="btn" id="btnPmAgentCancelPreview">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="pm-oneclick-status"></div>
+      <div class="pm-batch-progress-row">
+        <div id="pm-oneclick-progress" class="pm-oc-progress" aria-live="polite"></div>
+        <button type="button" class="btn btn-sm" id="btnPmBatchStop" hidden title="Interromper lote antes do próximo domínio/paciente">Parar</button>
+      </div>
+      <div id="pm-oneclick-results" class="pm-oc-results" aria-label="Resultado da extração por paciente"></div>
+
+    </div>
+  </div><!-- /panel-passometro -->
+
+  <!-- ════════════════════════════════════
+       PAINEL: RECEITAS
+  ════════════════════════════════════ -->
+  <div class="tab-panel" id="panel-receitas">
+    <div class="patient-bar" id="altaPatientBar">
+      <label for="altaPatientSelect">Paciente (local):</label>
+      <select id="altaPatientSelect" title="Paciente ativo em todas as abas"></select>
+      <span id="altaPatientHint" class="patient-hint" aria-live="polite"></span>
+    </div>
+    <div class="calc-body">
+      <p class="calc-desc">
+        Kit de alta — Receituário, Orientações, Laudo, Atestado, Acompanhante
+        e Retorno. Seed automático do passômetro/prescrições, editável por
+        campo ou como documento.
+      </p>
+      <div id="alta-mount" class="calc-mount alta-popup-mount"></div>
+      <p id="receitas-status" class="sync-status" hidden></p>
+    </div>
+  </div><!-- /panel-receitas -->
+
+  <!-- ════════════════════════════════════
+       PAINEL: CALCULADORAS / SCORES
+  ════════════════════════════════════ -->
+  <div class="tab-panel" id="panel-calculadoras">
+    <div class="calc-body">
+      <div class="patient-bar" id="calcPatientBar">
+        <label for="calcPatientSelect">Paciente (local):</label>
+        <select id="calcPatientSelect" title="Paciente ativo em todas as abas"></select>
+        <span id="calcPatientHint" class="patient-hint" aria-live="polite"></span>
+      </div>
+      <p class="calc-desc">
+        Calculadoras clínicas a partir dos dados extraídos. Ajuste os campos quando
+        faltar informação no passômetro ou nos exames.
+      </p>
+
+      <div class="calc-search-wrap">
+        <label class="sr-only" for="calcSearch">Buscar calculadora</label>
+        <input
+          type="search"
+          id="calcSearch"
+          class="calc-search"
+          placeholder="Buscar calculadora…"
+          autocomplete="off"
+        />
+      </div>
+
+      <div id="calc-mount" class="calc-mount"></div>
+    </div>
+  </div><!-- /panel-calculadoras -->
+
+
+  <script src="../lib/aghu-host-patterns.js"></script>
+  <script src="../lib/aghu-active-tab.js"></script>
+  <script src="../lib/patient-identity.js"></script>
+  <script src="../lib/patient-storage-migrate.js"></script>
+  <script src="../lib/supabase-config.js"></script>
+  <script src="../lib/billing-plans.js"></script>
+  <script src="../lib/billing-access.js"></script>
+  <script src="../lib/billing-extraction-gate.js"></script>
+  <script src="../lib/network-timeout.js"></script>
+  <script src="../lib/billing-status.js"></script>
+  <script src="../lib/staff-overage-popup.js"></script>
+  <script src="../lib/supabase-auth.js"></script>
+  <script src="../lib/workspace-access.js"></script>
+  <script src="../lib/workspace-storage.js"></script>
+  <script src="../lib/extension-clinical-purge.js"></script>
+  <script src="clinical-ui-reset.js"></script>
+  <script src="auth-storage-guard.js"></script>
+  <script src="../lib/supabase-edge-fetch.js"></script>
+  <script src="../lib/forgot-password-url.js"></script>
+  <script src="../lib/passometro-entries-order.js"></script>
+  <script src="../lib/passometro-internacao.js"></script>
+  <script src="../lib/passometro-po.js"></script>
+  <script src="../lib/passometro-entries-continuity.js"></script>
+  <script src="../lib/passometro-schema.js"></script>
+  <script src="../lib/patient-episodes-schema.js"></script>
+  <script src="../lib/passometro-collection.js"></script>
+  <script src="../lib/passometro-episodes-bridge.js"></script>
+  <script src="../lib/passometro-layout.js"></script>
+  <script src="../lib/passometro-vitals-parse.js"></script>
+  <script src="../lib/passometro-entry-scores.js"></script>
+  <script src="../lib/passometro-score-registry.js"></script>
+  <script src="../lib/passometro-field-limits.js"></script>
+  <script src="../lib/passometro-template.js"></script>
+  <script src="../lib/passometro-print-branding.js"></script>
+  <script src="../lib/passometro-print.js"></script>
+  <script src="../lib/passometro-autofill.js"></script>
+  <script src="../lib/controles-window.js"></script>
+  <script src="../lib/passometro-period-shortcuts.js"></script>
+  <script src="../lib/passometro-extract-orchestrator.js"></script>
+  <script src="../lib/passometro-agent-error-codes.js"></script>
+  <script src="../lib/passometro-agent-openai-errors.js"></script>
+  <script src="../lib/passometro-agent-llm-fallback.js"></script>
+  <script src="../lib/passometro-agent-hitl-preview.js"></script>
+  <script src="../lib/passometro-agent-run-state.js"></script>
+  <script src="../lib/passometro-agent-skills.js"></script>
+  <script src="../lib/passometro-agent-tools.js"></script>
+  <script src="../lib/passometro-agent-graph.js"></script>
+  <script src="../lib/passometro-agent-scorecard.js"></script>
+  <script src="../lib/passometro-agent-playbook.js"></script>
+  <script src="../lib/passometro-agent-improvement.js"></script>
+  <script src="../lib/passometro-agent-runtime.js"></script>
+  <script src="../lib/passometro-agent-loop.js"></script>
+  <script src="../lib/hpb-registry-schema.js"></script>
+  <script src="../lib/hpb-passometro-bridge.js"></script>
+  <script src="../lib/hpb-passometro-draft.js"></script>
+  <script src="passometro-archive.js"></script>
+  <script src="../lib/exam-sample-key.js"></script>
+  <script src="../lib/exam-merge-key.js"></script>
+  <script src="../lib/exam-manual-edit.js"></script>
+  <script src="../lib/user-preferences-client.js"></script>
+  <script src="../lib/extension-settings.js"></script>
+  <script src="../lib/sync-pii-merge.js"></script>
+  <script src="../lib/prescricoes-normalize.js"></script>
+  <script src="../lib/parse-locale-number.js"></script>
+  <script src="../lib/controles-vital-sanitize.js"></script>
+  <script src="../lib/controles-pa-view.js"></script>
+  <script src="../lib/controles-entry-vitals.js"></script>
+  <script src="../lib/supabase-sync-payload.js"></script>
+  <script src="../lib/sync-patient-identity.js"></script>
+  <script src="../lib/sync-cloud-fetch.js"></script>
+  <script src="../lib/supabase-sync.js"></script>
+  <script src="../lib/popup-sync-ui.js"></script>
+  <script src="../lib/pdf-fetch-config.js"></script>
+  <script src="../lib/pdf-fetch-wait.js"></script>
+  <script src="../lib/pdf-fetch-partition.js"></script>
+  <script src="../lib/pdf-fetch-errors.js"></script>
+  <script src="auth-popup.js"></script>
+  <script src="exam-siglas.js"></script>
+  <script src="../lib/age-from-dob.js"></script>
+  <script src="../lib/patient-pii-context.js"></script>
+  <script src="../lib/ckd-epi-egfr.js"></script>
+  <script src="../lib/calculator-units.js"></script>
+  <script src="../lib/calculator-shared.js"></script>
+  <script src="../lib/calculator-manual-draft.js"></script>
+  <script src="../lib/calculator-search-index.js"></script>
+  <script src="../lib/exam-latest-value.js"></script>
+  <script src="../lib/anion-gap.js"></script>
+  <script src="../lib/acid-base.js"></script>
+  <script src="../lib/acid-base-visibility.js"></script>
+  <script src="../lib/gasometry-latest-bundle.js"></script>
+  <script src="../lib/passometro-vitals-parse.js"></script>
+  <script src="../lib/news2-vitals-pick.js"></script>
+  <script src="../lib/passometro-entry-vitals.js"></script>
+  <script src="../lib/meld-score.js"></script>
+  <script src="../lib/meld-assessment.js"></script>
+  <script src="../lib/child-pugh-score.js"></script>
+  <script src="../lib/child-pugh-assessment.js"></script>
+  <script src="../lib/corrected-sodium.js"></script>
+  <script src="../lib/corrected-sodium-assessment.js"></script>
+  <script src="../lib/cockcroft-gault.js"></script>
+  <script src="../lib/cockcroft-assessment.js"></script>
+  <script src="../lib/ldl-friedewald.js"></script>
+  <script src="../lib/ldl-friedewald-assessment.js"></script>
+  <script src="../lib/corrected-calcium.js"></script>
+  <script src="../lib/corrected-calcium-assessment.js"></script>
+  <script src="../lib/news2-score.js"></script>
+  <script src="../lib/news2-assessment.js"></script>
+  <script src="../lib/qsofa-score.js"></script>
+  <script src="../lib/qsofa-assessment.js"></script>
+  <script src="../lib/fena.js"></script>
+  <script src="../lib/fena-assessment.js"></script>
+  <script src="../lib/free-water-deficit.js"></script>
+  <script src="../lib/free-water-deficit-assessment.js"></script>
+  <script src="../lib/urea-creatinine-ratio.js"></script>
+  <script src="../lib/urea-creatinine-ratio-assessment.js"></script>
+  <script src="../lib/curb65-score.js"></script>
+  <script src="../lib/curb65-assessment.js"></script>
+  <script src="../lib/chads-vasc-score.js"></script>
+  <script src="../lib/has-bled-score.js"></script>
+  <script src="../lib/acid-base-assessment.js"></script>
+  <script src="../lib/egfr-assessment.js"></script>
+  <script src="../lib/calculator-popup-registry.js"></script>
+  <script src="../lib/calculator-popup-host.js"></script>
+  <script src="../lib/theme-preference.js"></script>
+  <script src="../lib/exam-display-format.js"></script>
+  <script src="../lib/pdf-lab-parse.js"></script>
+  <script src="../lib/exam-plaquetas-format.js"></script>
+  <script src="../lib/exam-result-resolve.js"></script>
+  <script src="../lib/exam-copy-format.js"></script>
+  <script src="../lib/exam-date-window.js"></script>
+  <script src="../lib/exam-categories.js"></script>
+  <script src="../lib/pdf-block-match.js"></script>
+  <script src="../lib/exam-matrix-display.js"></script>
+  <script src="../lib/passometro-exams-table.js"></script>
+  <script src="../lib/patient-meta-merge.js"></script>
+  <script src="patient-archive.js"></script>
+  <script src="active-patient.js"></script>
+  <script src="controles-archive.js"></script>
+  <script src="prescricao-archive.js"></script>
+  <script src="../lib/copy-text-uppercase-br.js"></script>
+  <script src="analise-archive.js"></script>
+  <script src="../lib/date-br.js"></script>
+  <script src="../lib/prescricao-date-window.js"></script>
+  <script src="exams-cache.js"></script>
+  <script src="date-filter.js"></script>
+  <script src="action-buttons.js"></script>
+  <script src="exams-render.js"></script>
+  <script src="exams-pdf-fetch.js"></script>
+  <script src="patient-bar.js"></script>
+  <script src="exams-extract.js"></script>
+  <script src="exam-export.js"></script>
+  <script src="exams-table.js"></script>
+  <script src="pdf-batch.js"></script>
+  <script src="exams-fetch-pipeline.js"></script>
+  <script src="sync-orchestrator.js"></script>
+  <script src="workspace-popup.js"></script>
+  <script src="popup-theme-toggle.js"></script>
+  <script src="popup-tabs.js"></script>
+  <script src="popup.js"></script>
+  <script src="pa-format-controls.js"></script>
+  <script src="controles_popup.js"></script>
+  <script src="settings_popup.js"></script>
+  <script src="../lib/receita-administration-routes.js"></script>
+  <script src="../lib/receita-medication-catalog.js"></script>
+  <script src="../lib/prescricao-medication-classify.js"></script>
+  <script src="prescricoes_popup.js"></script>
+  <script src="../lib/cirurgias-pol-parse.js"></script>
+  <script src="../lib/cirurgias-descricao-pdf-parse.js"></script>
+  <script src="../lib/cirurgias-merge.js"></script>
+  <script src="../lib/cirurgias-extract-outcome.js"></script>
+  <script src="../lib/cirurgias-patient-gate.js"></script>
+  <script src="cirurgias_popup.js"></script>
+  <script src="../lib/patient-pol-historico-internacoes.js"></script>
+  <script src="../lib/patient-episodes-pol-import.js"></script>
+  <script src="../lib/cadastro-apply-archive.js"></script>
+  <script src="cadastro_popup.js"></script>
+  <script src="../lib/dom-mount.js"></script>
+  <script src="passometro_popup-render.js"></script>
+  <script src="passometro_popup.js"></script>
+  <script src="passometro-domain-extract.js"></script>
+  <script src="passometro-patient-card.js"></script>
+  <script src="passometro-oneclick.js"></script>
+  <script src="../lib/passometro-agent-result-cards.js"></script>
+  <script src="passometro-agent-chat.js"></script>
+  <script src="receita-archive.js"></script>
+  <script src="../lib/receita-schema.js"></script>
+  <script src="../lib/receita-import-aghu.js"></script>
+  <script src="../lib/receita-print-branding.js"></script>
+  <script src="../lib/receita-print-validation.js"></script>
+  <script src="../lib/receita-print.js"></script>
+  <script src="../lib/receita-patient-context.js"></script>
+  <script src="../lib/receita-template-schema.js"></script>
+  <script src="../lib/receita-template-apply.js"></script>
+  <script src="../lib/receita-template-builtin.js"></script>
+  <script src="../lib/receita-popup-host.js"></script>
+  <!-- Kit de alta (FEAT-159) — motor lib/alta-*.js + host popup + archive próprio -->
+  <script src="../lib/cirurgias-equipe-parse.js"></script>
+  <script src="../lib/alta-defaults.js"></script>
+  <script src="../lib/alta-procedimentos.js"></script>
+  <script src="../lib/alta-encaminhamento.js"></script>
+  <script src="../lib/cid10-subcategorias.pack.js"></script>
+  <script src="../lib/cid10-catalog.js"></script>
+  <script src="../lib/alta-schema.js"></script>
+  <script src="../lib/alta-preview-sanitize.js"></script>
+  <script src="../lib/alta-preview-editable.js"></script>
+  <script src="../lib/receita-preview-sync.js"></script>
+  <script src="../lib/alta-preview-html.js"></script>
+  <script src="../lib/alta-preview-sync.js"></script>
+  <script src="../lib/alta-print.js"></script>
+  <script src="../lib/alta-text-template-schema.js"></script>
+  <script src="../lib/alta-text-template-apply.js"></script>
+  <script src="../lib/alta-text-template-export.js"></script>
+  <script src="../lib/alta-template-builtin.js"></script>
+  <script src="../lib/alta-templates-manager-host.js"></script>
+  <script src="../lib/alta-popup-host.js"></script>
+  <script src="alta-archive.js"></script>
+  <script src="altas_popup.js"></script>
+  <script src="calculadoras_popup.js"></script>
+  <!-- FEAT-309 walkthrough Passômetro one-click -->
+  <div id="pm-walkthrough-overlay" class="pm-walkthrough-overlay" hidden aria-hidden="true">
+    <div id="pm-walkthrough-spotlight" class="pm-walkthrough-spotlight" hidden></div>
+    <div
+      id="pm-walkthrough-dialog"
+      class="pm-walkthrough-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pm-walkthrough-title"
+      aria-describedby="pm-walkthrough-body"
+      tabindex="-1"
+    >
+      <p id="pm-walkthrough-step" class="pm-walkthrough-step" aria-live="polite"></p>
+      <h2 id="pm-walkthrough-title" class="pm-walkthrough-title"></h2>
+      <p id="pm-walkthrough-body" class="pm-walkthrough-body"></p>
+      <div class="pm-walkthrough-actions">
+        <button type="button" class="btn" id="pm-walkthrough-skip">Pular</button>
+        <button type="button" class="btn primary" id="pm-walkthrough-next">Próximo</button>
+      </div>
+    </div>
+  </div>
+  <script src="../lib/passometro-walkthrough.js"></script>
+  <script src="passometro-walkthrough-ui.js"></script>
+</body>
+</html>
